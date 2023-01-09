@@ -33,7 +33,7 @@ function uploadConfig() {
         if (JSON.stringify(config) == configClone) return;
         var x = new XMLHttpRequest();
         x.crossorigin = '';
-        x.open("PUT", encodeURL(`https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`));
+        x.open("POST", encodeURL(`https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`));
         x.onload = function() {
             resolve();
         }
