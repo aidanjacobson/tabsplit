@@ -27,10 +27,13 @@ async function downloadConfig() {
     config = await retrieveConfig();
 }
 
-var configClone = "";
+var configClone = "{}";
 function uploadConfig() {
     return new Promise(function(resolve) {
-        if (JSON.stringify(config) == configClone) return;
+        if (configsEqual(config, JSON.parse(configClone))) {
+            console.log("skipped");
+            return;
+        };
         var x = new XMLHttpRequest();
         x.crossorigin = '';
         x.open("POST", encodeURL(`https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`));
@@ -39,10 +42,37 @@ function uploadConfig() {
         }
         x.setRequestHeader("Content-Type", "application/json");
         x.send(JSON.stringify(config));
+        console.log("From", configClone);
+        console.log("To", JSON.stringify(config))
         configClone = JSON.stringify(config);
     });
 }
 
 function encodeURL(url) {
     return `https://cors-anywhere.herokuapp.com/${url}`;
+}
+
+function configsEqual(config1, config2) {
+    if (config1.name != config2.name) return false;
+    if (config1.balance != config2.balance) return false;
+    var people1 = Object.keys(config1.people);
+    var people2 = Object.keys(config2.people);
+    if (people1.length != people2.length) return false;
+    for (var i = 0; i < people1.length; i++) {
+        if (people2.indexOf(people1[i]) == -1) return false;
+        if (!transactionListsAreEqual(config1.people[people1[i]].transactions, config2.people[people1[i]].transactions)) return false;
+    }
+    return true;
+}
+
+function transactionListsAreEqual(tList1, tList2) {
+    if (tList1.length != tList2.length) return false;
+    for (var i = 0; i < tList1.length; i++) {
+        if (!transactionsAreEqual(tList1[i], tList2[i])) return false;
+    }
+    return true;
+}
+
+function transactionsAreEqual(t1, t2) {
+    return t1.balance == t2.balance && t1.label == t2.label && t1.timestamp == t2.timestamp;
 }
