@@ -214,7 +214,6 @@ function displayTransaction(id, index) {
 }
 
 function backToPerson() {
-    personClick(lastPerson);
     doTransactionUpdate();
 }
 
@@ -222,6 +221,7 @@ function doTransactionUpdate() {
     config.people[lastPerson].transactions[lastIndex].balance = +transAmount.value;
     config.people[lastPerson].transactions[lastIndex].label = transLabel.value;
     updateAll();
+    personClick(lastPerson);
 }
 
 function initiateTransaction(positive) {
@@ -242,4 +242,11 @@ function submitTransaction() {
     config.people[lastPerson].transactions.push({balance:amount,label:label,timestamp:timestamp});
     updateAll();
     personClick(lastPerson);
+}
+
+function deleteTrans() {
+    if (confirm("Are you sure?")) {
+        config.people[lastPerson].transactions.splice(lastIndex, 1);
+        personClick(lastPerson);
+    }
 }

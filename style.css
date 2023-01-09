@@ -157,3 +157,7 @@ h3 {
 #actionAmount {
     width: 80%;
 }
+
+.deleteBtn {
+    color:red;
+}
