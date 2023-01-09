@@ -15,7 +15,7 @@ var basketName = "config";
 function retrieveConfig() {
     return new Promise(function(resolve) {
         var x = new XMLHttpRequest();
-        x.open("GET", `https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`);
+        x.open("GET", encodeURL(`https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`));
         x.onload = function() {
             resolve(JSON.parse(x.responseText));
         }
@@ -27,15 +27,22 @@ async function downloadConfig() {
     config = await retrieveConfig();
 }
 
+var configClone = "";
 function uploadConfig() {
     return new Promise(function(resolve) {
+        if (JSON.stringify(config) == configClone) return;
         var x = new XMLHttpRequest();
-        x.withCredentials = true;
-        x.open("PUT", `https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`);
+        x.crossorigin = '';
+        x.open("PUT", encodeURL(`https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`));
         x.onload = function() {
             resolve();
         }
         x.setRequestHeader("Content-Type", "application/json");
         x.send(JSON.stringify(config));
+        configClone = JSON.stringify(config);
     });
+}
+
+function encodeURL(url) {
+    return `https://cors-anywhere.herokuapp.com/${url}`;
 }
