@@ -35,8 +35,25 @@ async function main() {
     updateAll();
     populatePeople();
 }
+
+var hides = [];
 window.onload = function() {
+    hides = document.getElementsByClassName("page");
+    switchToPage(mainPage);
     main();
+}
+
+function switchToPage(page) {
+    for (var i = 0; i < hides.length; i++) {
+        hides[i].hide();
+    }
+    page.show();
+}
+HTMLElement.prototype.hide = function() {
+    this.setAttribute("hidden", true);
+}
+HTMLElement.prototype.show = function() {
+    this.removeAttribute("hidden");
 }
 
 function getPeopleList() {
@@ -150,13 +167,13 @@ Number.prototype.formatPrice = function() {
 }
 
 function personClick(id) {
-    mainPage.setAttribute("hidden", true);
-    personPage.removeAttribute("hidden");
+    switchToPage(personPage);
     personName.innerText = config.people[id].name;
     personBalance.innerText = config.people[id].current.balance.formatPrice();
 }
 
 function backToMain() {
+    switchToPage(mainPage);
     personPage.setAttribute("hidden", true);
     mainPage.removeAttribute("hidden");
 }

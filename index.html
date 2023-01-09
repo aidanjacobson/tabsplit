@@ -5,16 +5,20 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <div id="mainPage">
+        <div id="mainPage" class="page">
             <h1 id="currentBalance">$0</h1>
             <h3 class="h3a">Current Balance</h3>
-            <div id="peopleCards">
-            </div>
+            <div id="peopleCards"></div>
             <div class="footer" onclick="doNewPerson()"><b>Add New Person</b></div>
         </div>
-        <div id="personPage" hidden>
+        <div id="personPage" class="page">
             <h2 id="personName"></h2><br><br>
-            <h3 id="personBalance" class="h3b"></h3>
+            <h3 id="personBalance" class="h3b"></h3><br><br>
+            <div id="payActions">
+                <div class="payAction cover"><span>Cover</span></div>
+                <div class="payAction getCovered"><span>Get Covered</span></div>
+            </div><br><br>
+            <h3 class="h3b">Transactions</h3>
             <div class="footer" onclick="backToMain()"><b>Back</b></div>
         </div>
     </body>
