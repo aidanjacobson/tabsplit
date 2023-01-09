@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script src="configutils.js"></script>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="mainPage">
+            <h1 id="currentBalance">$0</h1>
+            <h3 class="h3a">Current Balance</h3>
+            <div id="peopleCards">
+            </div>
+            <div class="footer" onclick="doNewPerson()"><b>Add New Person</b></div>
+        </div>
+        <div id="personPage" hidden>
+            <h2 id="personName"></h2><br><br>
+            <h3 id="personBalance" class="h3b"></h3>
+            <div class="footer" onclick="backToMain()"><b>Back</b></div>
+        </div>
+    </body>
+</html>
