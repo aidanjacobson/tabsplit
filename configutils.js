@@ -30,7 +30,7 @@ async function downloadConfig() {
 function uploadConfig() {
     return new Promise(function(resolve) {
         var x = new XMLHttpRequest();
-        x.open("PUT", `https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`);
+        x.open("POST", `https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`);
         x.onload = function() {
             resolve();
         }
