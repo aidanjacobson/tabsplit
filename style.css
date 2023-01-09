@@ -41,7 +41,7 @@ h3 {
     margin: 10px;
     height: 300px;
     border: 2px solid;
-    border-radius: 25%;
+    border-radius: 75px;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 100;
@@ -97,4 +97,63 @@ h3 {
 
 .getCovered {
     background-color: lightgreen;
+}
+
+#transactions {
+    width: 100%;
+}
+.transaction {
+    border: 1px solid;
+    height: 200px;
+    border-radius: 50px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 75px;
+}
+
+.negative {
+    background-color: red;
+}
+
+.positive {
+    background-color: green;
+}
+
+#transactionPage {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100;
+    text-align: center;
+}
+
+#transactionPage > p, #transactionPage > input {
+    font-size: 100;
+    margin: 0;
+}
+
+.input {
+    width: 45%;
+    height: 100px;
+}
+
+#transLabel {
+    width: 100%;
+    text-align: center;
+}
+
+#completeTransaction > p, #completeTransaction > input {
+    font-size: 100;
+    margin: 0;
+    text-align: center;
+}
+#completeTransaction {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100;
+    text-align: center;
+}
+
+#actionAmount {
+    width: 80%;
 }

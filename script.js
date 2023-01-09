@@ -31,7 +31,8 @@ function updateAll() {
 }
 
 async function main() {
-    await configLoaded();
+    //await configLoaded();
+    await downloadConfig();
     updateAll();
     populatePeople();
 }
@@ -48,6 +49,9 @@ function switchToPage(page) {
         hides[i].hide();
     }
     page.show();
+    if (page == mainPage) {
+        updateAll();
+    }
 }
 HTMLElement.prototype.hide = function() {
     this.setAttribute("hidden", true);
@@ -70,6 +74,7 @@ function createNewPerson(id, name) {
         },
         transactions: []
     };
+    uploadConfig();
     return true;
 }
 
@@ -106,6 +111,7 @@ function consolidateOldTransactions(id) {
 function update(id) {
     consolidateOldTransactions(id);
     calculateCurrent(id);
+    uploadConfig();
 }
 
 Object.prototype.cloneTransaction = function() {
@@ -146,6 +152,7 @@ function calculateTotalBalance() {
     }
     config.balance = current;
     currentBalance.innerHTML = current.formatPrice();
+    uploadConfig();
 }
 
 function populatePeople() {
@@ -158,22 +165,81 @@ function populatePeople() {
     }
 }
 
-Number.prototype.formatPrice = function() {
+Number.prototype.formatPrice = function(plus=false) {
     if (this<0) {
         return "-$" + (-this);
+    } else if (plus) {
+        return "+$" + this;
     } else {
         return "$" + this;
     }
 }
 
+var lastPerson = "";
 function personClick(id) {
+    lastPerson = id;
     switchToPage(personPage);
     personName.innerText = config.people[id].name;
     personBalance.innerText = config.people[id].current.balance.formatPrice();
+    loadTransactions(id);
 }
 
 function backToMain() {
     switchToPage(mainPage);
     personPage.setAttribute("hidden", true);
     mainPage.removeAttribute("hidden");
+    populatePeople();
+}
+
+function loadTransactions(id) {
+    transactions.innerHTML = "";
+    for (var i = 0; i < config.people[id].transactions.length; i++) {
+        var transaction = config.people[id].transactions[i];
+        var topString = `${transaction.balance.formatPrice(true)} - ${timestampToDateString(transaction.timestamp)}`;
+        var bottomString = transaction.label;
+        var className = transaction.balance < 0 ? "negative" : "positive";
+        var elementString = `<div onclick="displayTransaction('${id}', ${i})" class="transaction ${className}">${topString}<br>${bottomString}</div>`;
+        transactions.innerHTML += elementString;
+    }
+}
+
+var lastIndex = 0;
+function displayTransaction(id, index) {
+    lastIndex = index;
+    var transaction = config.people[id].transactions[index];
+    switchToPage(transactionPage);
+    transDate.innerText = `Transaction Date: ${timestampToDateString(transaction.timestamp)}`;
+    transAmount.value = transaction.balance;
+    transLabel.value = transaction.label;
+}
+
+function backToPerson() {
+    personClick(lastPerson);
+    doTransactionUpdate();
+}
+
+function doTransactionUpdate() {
+    config.people[lastPerson].transactions[lastIndex].balance = +transAmount.value;
+    config.people[lastPerson].transactions[lastIndex].label = transLabel.value;
+    updateAll();
+}
+
+function initiateTransaction(positive) {
+    var id = lastPerson;
+    switchToPage(completeTransaction);
+    actionType.innerText = positive ? "pay" : "get paid by";
+    actionPerson.innerText = config.people[id].name;
+    actionAmount.value = "";
+    actionAmount.setAttribute("data-sign", positive?"+":"-");
+    actionAmount.focus();
+}
+
+function submitTransaction() {
+    var amount = +actionAmount.value;
+    if (actionAmount.getAttribute("data-sign") == "-") amount *= -1;
+    var label = prompt("Enter a transaction Label");
+    var timestamp = Date.now();
+    config.people[lastPerson].transactions.push({balance:amount,label:label,timestamp:timestamp});
+    updateAll();
+    personClick(lastPerson);
 }

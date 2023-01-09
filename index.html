@@ -15,11 +15,25 @@
             <h2 id="personName"></h2><br><br>
             <h3 id="personBalance" class="h3b"></h3><br><br>
             <div id="payActions">
-                <div class="payAction cover"><span>Cover</span></div>
-                <div class="payAction getCovered"><span>Get Covered</span></div>
+                <div class="payAction cover" onclick="initiateTransaction(true)"><span>Cover</span></div>
+                <div class="payAction getCovered" onclick="initiateTransaction(false)"><span>Get Covered</span></div>
             </div><br><br>
-            <h3 class="h3b">Transactions</h3>
+            <h3 class="h3b">Transactions</h3><br><br>
+            <div id="transactions"></div>
             <div class="footer" onclick="backToMain()"><b>Back</b></div>
+        </div>
+        <div id="transactionPage" class="page">
+            <p id="transDate">Transaction Date:</p><br>
+            <p>Transaction Amount:</p>
+            $<input class="input" type="number" id="transAmount" value="0" onchange="doTransactionUpdate()"><br><br>
+            <p>Transaction Label:</p>
+            <input class="input" type="text" id="transLabel" value="" placeholder="Enter Label">
+            <div class="footer" onclick="backToPerson()"><b>Back</b></div>
+        </div>
+        <div id="completeTransaction" class="page">
+            <br><br><br>
+            How much do you want to <span id="actionType"></span> <span id="actionPerson"></span>?<br><br>
+            <input data-sign="+" class="input" id="actionAmount" type="number" onchange="submitTransaction()" />
         </div>
     </body>
 </html>
