@@ -199,7 +199,7 @@ function loadTransactions(id) {
         var bottomString = transaction.label;
         var className = transaction.balance < 0 ? "negative" : "positive";
         var elementString = `<div onclick="displayTransaction('${id}', ${i})" class="transaction ${className}">${topString}<br>${bottomString}</div>`;
-        transactions.innerHTML += elementString;
+        transactions.innerHTML = elementString + transactions.innerHTML;
     }
 }
 
