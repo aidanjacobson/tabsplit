@@ -17,6 +17,7 @@ function retrieveConfig() {
         x.onload = function() {
             resolve(JSON.parse(x.responseText));
         }
+        x.setRequestHeader("Security-key", localStorage.dkey);
         x.send();
     });
 }
