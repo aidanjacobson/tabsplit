@@ -34,7 +34,7 @@ function uploadConfig() {
         };
         var x = new XMLHttpRequest();
         x.crossorigin = '';
-        x.open("PATCH", encodeURL(`https://json.extendsclass.com/bin/07cb509c4877`));
+        x.open("PUT", encodeURL(`https://json.extendsclass.com/bin/07cb509c4877`));
         x.onload = function() {
             resolve();
         }
