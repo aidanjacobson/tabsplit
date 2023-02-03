@@ -141,6 +141,7 @@ function doNewPerson() {
     var name = prompt("Enter name of person");
     var id = name;
     createNewPerson(id, name);
+    personClick(id);
     populatePeople();
 }
 
@@ -180,7 +181,8 @@ function personClick(id) {
     lastPerson = id;
     switchToPage(personPage);
     personName.innerText = config.people[id].name;
-    personBalance.innerText = config.people[id].current.balance.formatPrice();
+    var bal = config.people[id].current.balance.formatPrice();
+    personBalance.innerText = bal == "$0" ? "$0 (click to delete person)" : bal;
     loadTransactions(id);
 }
 
@@ -249,4 +251,23 @@ function deleteTrans() {
         config.people[lastPerson].transactions.splice(lastIndex, 1);
         personClick(lastPerson);
     }
+}
+
+async function deletePerson(id) {
+    delete config.people[id];
+    await uploadConfig();
+}
+
+function changeName() {
+    config.people[lastPerson].name = prompt("Enter new name", config.people[lastPerson].name);
+    personName.innerText = config.people[lastPerson].name;
+    uploadConfig();
+}
+
+async function doAttemptDelete() {
+    if (personBalance.innerText == "$0 (click to delete person)" && confirm(`Are you sure you want to delete ${personName.innerText}?`)) {
+        await deletePerson(lastPerson);
+        populatePeople();
+        switchToPage(mainPage);
+    }  
 }
