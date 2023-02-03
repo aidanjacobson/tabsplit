@@ -34,7 +34,7 @@ function uploadConfig() {
         };
         var x = new XMLHttpRequest();
         x.crossorigin = '';
-        x.open("PUT", encodeURL(`https://json.extendsclass.com/bin/07cb509c4877`));
+        x.open("PATCH", encodeURL(`https://json.extendsclass.com/bin/07cb509c4877`));
         x.onload = function() {
             resolve();
         }
@@ -43,6 +43,8 @@ function uploadConfig() {
         console.log("From", configClone);
         console.log("To", JSON.stringify(config))
         configClone = JSON.stringify(config);
+        console.log("Uploaded config", JSON.parse(JSON.stringify(config)));
+        console.trace();
     });
 }
 

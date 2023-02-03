@@ -38,10 +38,10 @@ async function main() {
 }
 
 var hides = [];
-window.onload = function() {
+window.onload = async function() {
     hides = document.getElementsByClassName("page");
+    await main();
     switchToPage(mainPage);
-    main();
 }
 
 function switchToPage(page) {
