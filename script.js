@@ -259,8 +259,9 @@ async function deletePerson(id) {
 }
 
 function changeName() {
-    config.people[lastPerson].name = prompt("Enter new name", config.people[lastPerson].name);
-    personName.innerText = config.people[lastPerson].name;
+    var newName = prompt("Enter new name", config.people[lastPerson].name);
+    if (newName && newName != "") config.people[lastPerson].name = newName;
+    personName.innerText = newName;
     uploadConfig();
 }
 
