@@ -26,6 +26,7 @@ async function downloadConfig() {
 }
 
 var configClone = "{}";
+
 function uploadConfig() {
     return new Promise(function(resolve) {
         if (configsEqual(config, JSON.parse(configClone))) {
@@ -39,6 +40,7 @@ function uploadConfig() {
             resolve();
         }
         x.setRequestHeader("Content-Type", "application/json");
+        x.setRequestHeader("Security-key", localStorage.dkey);
         x.send(JSON.stringify(config));
         console.log("From", configClone);
         console.log("To", JSON.stringify(config))
