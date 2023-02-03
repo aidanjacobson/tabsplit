@@ -13,7 +13,7 @@ async function configLoaded() {
 function retrieveConfig() {
     return new Promise(function(resolve) {
         var x = new XMLHttpRequest();
-        x.open("GET", encodeURL(`https://json.extendsclass.com/bin/07cb509c4877`));
+        x.open("GET", encodeURL(`https://json.extendsclass.com/bin/6e8e4aaec173`));
         x.onload = function() {
             resolve(JSON.parse(x.responseText));
         }
@@ -36,7 +36,7 @@ function uploadConfig() {
         };
         var x = new XMLHttpRequest();
         x.crossorigin = '';
-        x.open("PUT", encodeURL(`https://json.extendsclass.com/bin/07cb509c4877`));
+        x.open("PUT", encodeURL(`https://json.extendsclass.com/bin/6e8e4aaec173`));
         x.onload = function() {
             resolve();
         }
