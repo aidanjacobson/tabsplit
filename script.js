@@ -260,9 +260,11 @@ async function deletePerson(id) {
 
 function changeName() {
     var newName = prompt("Enter new name", config.people[lastPerson].name);
-    if (newName && newName != "") config.people[lastPerson].name = newName;
-    personName.innerText = newName;
-    uploadConfig();
+    if (newName && newName != "") {
+        config.people[lastPerson].name = newName;
+        personName.innerText = newName;
+        uploadConfig();
+    }
 }
 
 async function doAttemptDelete() {
