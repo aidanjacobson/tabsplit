@@ -10,12 +10,10 @@ async function configLoaded() {
 
 //config = {"name":"Aidan","balance":-10,"people":{"Tyler":{"name":"Tyler","current":{"balance":-10,"timestamp":1673241836422},"transactions":[{"balance":0,"timestamp":1664601836422,"label":"Balance as of 9/30/2022"},{"balance":-10,"timestamp":1673241792378,"label":"movie"}]}},"daysToKeep":14}
 
-var pantryID = "96b6d70a-432f-4f33-92cd-8dea3ea18376";
-var basketName = "config";
 function retrieveConfig() {
     return new Promise(function(resolve) {
         var x = new XMLHttpRequest();
-        x.open("GET", encodeURL(`https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`));
+        x.open("GET", encodeURL(`https://json.extendsclass.com/bin/07cb509c4877`));
         x.onload = function() {
             resolve(JSON.parse(x.responseText));
         }
@@ -36,7 +34,7 @@ function uploadConfig() {
         };
         var x = new XMLHttpRequest();
         x.crossorigin = '';
-        x.open("POST", encodeURL(`https://getpantry.cloud/apiv1/pantry/${pantryID}/basket/${basketName}`));
+        x.open("PUT", encodeURL(`https://json.extendsclass.com/bin/07cb509c4877`));
         x.onload = function() {
             resolve();
         }
@@ -49,7 +47,8 @@ function uploadConfig() {
 }
 
 function encodeURL(url) {
-    return `https://cors-anywhere.herokuapp.com/${url}`;
+    //return `https://cors-anywhere.herokuapp.com/${url}`;
+    return url; // pass thru
 }
 
 function configsEqual(config1, config2) {
