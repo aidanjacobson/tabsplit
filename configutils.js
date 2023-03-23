@@ -10,10 +10,13 @@ async function configLoaded() {
 
 //config = {"name":"Aidan","balance":-10,"people":{"Tyler":{"name":"Tyler","current":{"balance":-10,"timestamp":1673241836422},"transactions":[{"balance":0,"timestamp":1664601836422,"label":"Balance as of 9/30/2022"},{"balance":-10,"timestamp":1673241792378,"label":"movie"}]}},"daysToKeep":14}
 
+const setURL = "http://aidanjacobson.duckdns.org:9999/storage/set";
+const getURL = "http://aidanjacobson.duckdns.org:9999/storage/get";
+
 function retrieveConfig() {
     return new Promise(function(resolve) {
         var x = new XMLHttpRequest();
-        x.open("GET", encodeURL(`https://json.extendsclass.com/bin/6e8e4aaec173`));
+        x.open("GET", encodeURL(getURL));
         x.onload = function() {
             resolve(JSON.parse(x.responseText));
         }
@@ -36,7 +39,7 @@ function uploadConfig() {
         };
         var x = new XMLHttpRequest();
         x.crossorigin = '';
-        x.open("PUT", encodeURL(`https://json.extendsclass.com/bin/6e8e4aaec173`));
+        x.open("POST", encodeURL(setURL));
         x.onload = function() {
             resolve();
         }
