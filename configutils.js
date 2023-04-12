@@ -60,6 +60,7 @@ function encodeURL(url) {
 }
 
 function configsEqual(config1, config2) {
+/*
     if (config1.name != config2.name) return false;
     if (config1.balance != config2.balance) return false;
     var people1 = Object.keys(config1.people);
@@ -70,6 +71,8 @@ function configsEqual(config1, config2) {
         if (!transactionListsAreEqual(config1.people[people1[i]].transactions, config2.people[people1[i]].transactions)) return false;
     }
     return true;
+*/
+    return false;
 }
 
 function transactionListsAreEqual(tList1, tList2) {
