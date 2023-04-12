@@ -225,6 +225,7 @@ function doTransactionUpdate() {
     config.people[lastPerson].transactions[lastIndex].label = transLabel.value;
     updateAll();
     personClick(lastPerson);
+    uploadConfig();
 }
 
 function initiateTransaction(positive) {
@@ -251,7 +252,9 @@ function submitTransaction() {
 function deleteTrans() {
     if (confirm("Are you sure?")) {
         config.people[lastPerson].transactions.splice(lastIndex, 1);
+        updateAll();
         personClick(lastPerson);
+        uploadConfig();
     }
 }
 
