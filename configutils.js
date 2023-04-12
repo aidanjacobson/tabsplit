@@ -45,10 +45,10 @@ function uploadConfig() {
         }
         x.setRequestHeader("Content-Type", "application/json");
         x.setRequestHeader("Security-key", localStorage.dkey);
-        x.send(JSON.stringify(config));
+        x.send(JSON.stringify(process(config)));
         console.log("From", configClone);
         console.log("To", JSON.stringify(config))
-        configClone = JSON.stringify(process(config));
+        configClone = JSON.stringify(config);
         console.log("Uploaded config", JSON.parse(JSON.stringify(config)));
         console.trace();
     });
