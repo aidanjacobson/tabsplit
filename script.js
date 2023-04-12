@@ -245,6 +245,7 @@ function submitTransaction() {
     config.people[lastPerson].transactions.push({balance:amount,label:label,timestamp:timestamp});
     updateAll();
     personClick(lastPerson);
+    uploadConfig();
 }
 
 function deleteTrans() {
