@@ -88,7 +88,7 @@ function process(config) {
     config.simple={};
     var keys = Object.keys(config.people);
     for (var i= 0; i< keys.length; i++) {
-      config.simple[keys[i]] = config.people[keys[i]].current.balance;
+      config.simple[config.peopld[keys[i]].name] = config.people[keys[i]].current.balance;
     }
     return config;
 }
