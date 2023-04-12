@@ -48,7 +48,7 @@ function uploadConfig() {
         x.send(JSON.stringify(config));
         console.log("From", configClone);
         console.log("To", JSON.stringify(config))
-        configClone = JSON.stringify(config);
+        configClone = JSON.stringify(process(config));
         console.log("Uploaded config", JSON.parse(JSON.stringify(config)));
         console.trace();
     });
@@ -82,4 +82,13 @@ function transactionListsAreEqual(tList1, tList2) {
 
 function transactionsAreEqual(t1, t2) {
     return t1.balance == t2.balance && t1.label == t2.label && t1.timestamp == t2.timestamp;
+}
+
+function process(config) {
+    config.simple={};
+    var keys = Object.keys(config.people);
+    for (int i= 0; i< keys.length; i++) {
+      config.simple[keys[i]] = config.people[keys[i]].current.balance;
+    }
+    return config;
 }
