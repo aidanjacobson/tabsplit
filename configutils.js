@@ -87,7 +87,7 @@ function transactionsAreEqual(t1, t2) {
 function process(config) {
     config.simple={};
     var keys = Object.keys(config.people);
-    for (int i= 0; i< keys.length; i++) {
+    for (var i= 0; i< keys.length; i++) {
       config.simple[keys[i]] = config.people[keys[i]].current.balance;
     }
     return config;
