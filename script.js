@@ -332,5 +332,5 @@ async function doAttemptDelete() {
 function doShare() {
     var key = encodeURIComponent(btoa(lastPerson));
     var url = `https://aidanjacobson.github.io/tabsplit?key=${key}`;
-    navigator.share({url, text});
+    navigator.share({url});
 }
