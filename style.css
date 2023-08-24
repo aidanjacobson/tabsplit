@@ -170,7 +170,7 @@ h3 {
 }
 
 #shareImg {
-    position: absolute;
+    position: fixed;
     width: 125px;
     top: 20px;
     right: 15px;
