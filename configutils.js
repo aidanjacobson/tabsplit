@@ -33,10 +33,6 @@ var configClone = "{}";
 
 function uploadConfig() {
     return new Promise(function(resolve) {
-        if (configsEqual(config, JSON.parse(configClone))) {
-            console.log("skipped");
-            return;
-        };
         var x = new XMLHttpRequest();
         x.crossorigin = '';
         x.open("POST", encodeURL(setURL));
@@ -46,11 +42,7 @@ function uploadConfig() {
         x.setRequestHeader("Content-Type", "application/json");
         if (!readOnlyMode) x.setRequestHeader("Security-key", localStorage.dkey);
         x.send(JSON.stringify(process(config)));
-        console.log("From", configClone);
-        console.log("To", JSON.stringify(config))
         configClone = JSON.stringify(config);
-        console.log("Uploaded config", JSON.parse(JSON.stringify(config)));
-        console.trace();
     });
 }
 
