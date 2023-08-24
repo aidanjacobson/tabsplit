@@ -168,3 +168,10 @@ h3 {
     white-space: nowrap;
     overflow: hidden;
 }
+
+#shareImg {
+    position: absolute;
+    width: 125px;
+    top: 20px;
+    right: 15px;
+}
