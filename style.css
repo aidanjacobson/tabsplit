@@ -9,7 +9,7 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 400;
+    font-size: 200;
     margin-top: 100;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -160,4 +160,11 @@ h3 {
 
 .deleteBtn {
     color:red;
+}
+
+#currentBalance {
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
 }

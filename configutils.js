@@ -10,8 +10,8 @@ async function configLoaded() {
 
 //config = {"name":"Aidan","balance":-10,"people":{"Tyler":{"name":"Tyler","current":{"balance":-10,"timestamp":1673241836422},"transactions":[{"balance":0,"timestamp":1664601836422,"label":"Balance as of 9/30/2022"},{"balance":-10,"timestamp":1673241792378,"label":"movie"}]}},"daysToKeep":14}
 
-const setURL = "https://aidanjacobson.duckdns.org:9999/storage/set";
-const getURL = "https://aidanjacobson.duckdns.org:9999/storage/get";
+var setURL = "https://aidanjacobson.duckdns.org:9999/storage/set";
+var getURL = "https://aidanjacobson.duckdns.org:9999/storage/get";
 
 function retrieveConfig() {
     return new Promise(function(resolve) {
@@ -20,7 +20,7 @@ function retrieveConfig() {
         x.onload = function() {
             resolve(JSON.parse(x.responseText));
         }
-        x.setRequestHeader("Security-key", localStorage.dkey);
+        if (!readOnlyMode) x.setRequestHeader("Security-key", localStorage.dkey);
         x.send();
     });
 }
@@ -44,7 +44,7 @@ function uploadConfig() {
             resolve();
         }
         x.setRequestHeader("Content-Type", "application/json");
-        x.setRequestHeader("Security-key", localStorage.dkey);
+        if (!readOnlyMode) x.setRequestHeader("Security-key", localStorage.dkey);
         x.send(JSON.stringify(process(config)));
         console.log("From", configClone);
         console.log("To", JSON.stringify(config))

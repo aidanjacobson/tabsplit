@@ -33,12 +33,27 @@ function updateAll() {
 
 async function main() {
     //await configLoaded();
+    checkReadOnly();
     await downloadConfig();
     updateAll();
     populatePeople();
 }
 
+function checkReadOnly() {
+    var params = new URLSearchParams(location.search);
+    if (params.has("key")) {
+        readOnlyMode = true;
+    }
+    if (readOnlyMode) {
+        var personID = atob(params.get("key"));
+        getURL = "https://aidanjacobson.duckdns.org:9999/storage/person/" + personID;
+    }
+}
+
 var hides = [];
+
+var readOnlyMode = false;
+
 window.onload = async function() {
     hides = document.getElementsByClassName("page");
     await main();
@@ -139,6 +154,10 @@ function addTransaction(id, amount, label) {
 }
 
 function doNewPerson() {
+    if (readOnlyMode) {
+        alert("Error: you are in readonly mode and cannot make changes");
+        return;
+    }
     var name = prompt("Enter name of person");
     var id = name;
     createNewPerson(id, name);
@@ -168,12 +187,14 @@ function populatePeople() {
 }
 
 Number.prototype.formatPrice = function(plus=false) {
-    if (this<0) {
-        return "-$" + (-this);
+    var num = this;
+    num = Math.floor(num*100)/100;
+    if (num<0) {
+        return "-$" + (-num);
     } else if (plus) {
-        return "+$" + this;
+        return "+$" + num;
     } else {
-        return "$" + this;
+        return "$" + num;
     }
 }
 
@@ -221,6 +242,11 @@ function backToPerson() {
 }
 
 function doTransactionUpdate() {
+    if (readOnlyMode) {
+        updateAll();
+        personClick(lastPerson);
+        return;
+    }
     config.people[lastPerson].transactions[lastIndex].balance = +transAmount.value;
     config.people[lastPerson].transactions[lastIndex].label = transLabel.value;
     updateAll();
@@ -229,6 +255,10 @@ function doTransactionUpdate() {
 }
 
 function initiateTransaction(positive) {
+    if (readOnlyMode) {
+        alert("Error: you are in readonly mode and cannot make changes");
+        return;
+    }
     var id = lastPerson;
     switchToPage(completeTransaction);
     actionType.innerText = positive ? "pay" : "get paid by";
@@ -239,6 +269,12 @@ function initiateTransaction(positive) {
 }
 
 function submitTransaction() {
+    if (readOnlyMode) {
+        alert("Error: you are in readonly mode and cannot make changes");
+        updateAll();
+        personClick(lastPerson);
+        return;
+    }
     var amount = +actionAmount.value;
     if (actionAmount.getAttribute("data-sign") == "-") amount *= -1;
     var label = prompt("Enter a transaction Label");
@@ -250,6 +286,10 @@ function submitTransaction() {
 }
 
 function deleteTrans() {
+    if (readOnlyMode) {
+        alert("Error: you are in readonly mode and cannot make changes");
+        return;
+    }
     if (confirm("Are you sure?")) {
         config.people[lastPerson].transactions.splice(lastIndex, 1);
         updateAll();
@@ -264,6 +304,10 @@ async function deletePerson(id) {
 }
 
 function changeName() {
+    if (readOnlyMode) {
+        alert("Error: you are in readonly mode and cannot make changes");
+        return;
+    }
     var newName = prompt("Enter new name", config.people[lastPerson].name);
     if (newName && newName != "") {
         config.people[lastPerson].name = newName;
@@ -273,6 +317,10 @@ function changeName() {
 }
 
 async function doAttemptDelete() {
+    if (readOnlyMode) {
+        alert("Error: you are in readonly mode and cannot make changes");
+        return;
+    }
     if (personBalance.innerText == "$0 (click to delete person)" && confirm(`Are you sure you want to delete ${personName.innerText}?`)) {
         await deletePerson(lastPerson);
         populatePeople();
