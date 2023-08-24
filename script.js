@@ -332,6 +332,5 @@ async function doAttemptDelete() {
 function doShare() {
     var key = encodeURIComponent(btoa(lastPerson));
     var url = `https://aidanjacobson.github.io/tabsplit?key=${key}`;
-    var text = `View ${config.people[lastPerson].name}'s transactions on TabSplit`;
     navigator.share({url, text});
 }
