@@ -92,11 +92,11 @@ h3 {
 }
 
 .cover {
-    background-color: rgb(127, 251, 255);
+    background-color: rgb(100, 255, 100);
 }
 
 .getCovered {
-    background-color: lightgreen;
+    background-color: rgb(255, 100, 100);
 }
 
 #transactions {
