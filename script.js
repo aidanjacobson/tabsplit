@@ -305,7 +305,7 @@ async function deletePerson(id) {
 
 function changeName() {
     if (readOnlyMode) {
-        alert("Error: you are in readonly mode and cannot make changes");
+        //alert("Error: you are in readonly mode and cannot make changes");
         return;
     }
     var newName = prompt("Enter new name", config.people[lastPerson].name);
