@@ -32,6 +32,11 @@ async function downloadConfig() {
 var configClone = "{}";
 
 function uploadConfig() {
+    if (typeof config.writeCount == "undefined") {
+        config.writeCount = 0;
+    } else {
+        config.writeCount++;
+    }
     return new Promise(function(resolve) {
         var x = new XMLHttpRequest();
         x.crossorigin = '';
